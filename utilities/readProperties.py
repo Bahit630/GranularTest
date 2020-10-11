@@ -10,3 +10,8 @@ class ReadConfig():
         url = config.get('common info', 'baseURL')
         return url
 
+    @staticmethod
+    def getchrome():
+        chrome = config.get('common info','chromePath')
+        return chrome
+

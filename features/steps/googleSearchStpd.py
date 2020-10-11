@@ -1,17 +1,19 @@
 from behave import *
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.chrome.options import Options
-from pageObjects.googleSearchPage import googlePage
 from utilities.readProperties import ReadConfig
 from selenium import webdriver
 
-baseURL = ReadConfig.getURL()
 
-#bahtiyar
+baseURL = ReadConfig.getURL()
+chrome = ReadConfig.getchrome()
+
+
 @given('launch chrome browser')
 def launchBrowser(context):
-
-    context.driver = webdriver.Chrome()
+    options = webdriver.ChromeOptions()
+    options.add_experimental_option("detach", True)
+    context.driver = webdriver.Chrome(chrome_options=options, executable_path=chrome)
+    context.driver.maximize_window()
 
 
 @when('Open the google search page')
@@ -20,10 +22,7 @@ def openGoogle(context):
     context.driver.get(baseURL)
 
 
+@then('User searches for "{value}"')
+def search(context,value):
 
-@then('User searches for Granular')
-def search(context):
-
-    context.driver.find_element_by_name("q").send_keys("Granular"+ Keys.ENTER)
-
-
+    context.driver.find_element_by_name("q").send_keys(value + Keys.ENTER)

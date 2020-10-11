@@ -5,14 +5,14 @@ from selenium import webdriver
 
 
 baseURL = ReadConfig.getURL()
-chrome = ReadConfig.getchrome()
+
 
 
 @given('launch chrome browser')
 def launchBrowser(context):
     options = webdriver.ChromeOptions()
     options.add_experimental_option("detach", True)
-    context.driver = webdriver.Chrome(chrome_options=options, executable_path=chrome)
+    context.driver = webdriver.Chrome(chrome_options=options)
     context.driver.maximize_window()
 
 
